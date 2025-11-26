@@ -21,7 +21,7 @@
             "assets": [
               "src/_redirects",
               "src/assets",
-              "srs/404.html"
+              "src/404.html"
               {
                 "glob": "**/*",
                 "input": "public"
