@@ -13,7 +13,7 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry c){
                 c.addMapping("/api/**")
-                .allowedOrigins("http://localhost:4200")
+                .allowedOrigins("https://employee-logs-fr.netlify.app")
                 .allowedMethods("GET","PUT","DELETE","POST","UPDATE","OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true);
