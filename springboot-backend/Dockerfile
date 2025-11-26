@@ -1,17 +1,13 @@
-# Use Eclipse Temurin JDK (Java 17)
-FROM eclipse-temurin:17-jdk-alpine
-
-# Set working directory
+# -------- BUILD STAGE --------
+FROM eclipse-temurin:17-jdk-alpine AS build
 WORKDIR /app
-
-# Copy Maven wrapper and project files
 COPY . .
-
-# Make Maven wrapper executable
 RUN chmod +x mvnw
+RUN ./mvnw -q -DskipTests clean package
 
-# Build the application
-RUN ./mvnw -q -e -DskipTests clean package
+# -------- RUNTIME STAGE --------
+FROM eclipse-temurin:17-jdk-alpine
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
 
-# Run app on startup
-CMD ["java", "-jar", "target/*.jar"]
+CMD ["java", "-jar", "app.jar"]
