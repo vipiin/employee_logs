@@ -34,3 +34,8 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./angular-frontend/dist/angular-frontend/browser
+    - name: Create redirect 404.html
+      run: |
+        cd angular-frontend/dist/angular-frontend/browser
+        cp index.html 404.html
+
