@@ -13,7 +13,7 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry c){
                 c.addMapping("/api/**")
-                .allowedOrigins("https://employee-logs-fr.netlify.app","https://vipiin.github.io/employee_logs")
+                .allowedOrigins("https://employee-logs-fr.netlify.app","https://vipiin.github.io")
                 .allowedMethods("GET","PUT","DELETE","POST","UPDATE","OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true);
