@@ -9,5 +9,6 @@ RUN ./mvnw -q -DskipTests clean package
 FROM eclipse-temurin:17-jdk-alpine
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
+COPY --from=build /app/src/main/resources/aiven-kafka-ca.pem aiven-kafka-ca.pem
 
 CMD ["java", "-jar", "app.jar"]
