@@ -13,9 +13,10 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry c){
                 c.addMapping("/api/**")
-                .allowedOrigins("https://employee-logs-fr.netlify.app","https://vipiin.github.io")
+                .allowedOrigins("https://employee-logs-fr.netlify.app","https://vipiin.github.io","http://localhost:4200")
                 .allowedMethods("GET","PUT","DELETE","POST","UPDATE","OPTIONS")
                 .allowedHeaders("*")
+                .exposedHeaders("X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset-Seconds", "X-RateLimit-Reset-Millis", "Retry-After")
                 .allowCredentials(true);
             }
         };

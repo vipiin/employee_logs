@@ -1,36 +1,89 @@
-<h2>Employee List</h2>
-<div style="border: 2px solid red;" style="padding-bottom: 100px;">
-<table class="table table-striped">
+<div class="d-flex justify-content-between align-items-center mb-3" style="margin-top: 20px;">
+  <h2>Employee List</h2>
+  <button (click)="refreshList()" class="btn btn-primary">
+    Refresh List
+  </button>
+</div>
+
+<div class="kafka-status mb-3">
+  <div class="kafka-header-wrapper">
+    <div class="kafka-title">Kafka event pipeline</div>
+    <div class="kafka-topic">Topic: employee-events</div>
+  </div>
+  <div class="kafka-events-list">
+    @if (kafkaEvents.length > 0) {
+      @for (event of kafkaEvents; track event.createdAt) {
+      <div class="kafka-event-row">
+        <span class="event-type" [class.event-create]="event.type === 'EMPLOYEE_CREATED'" [class.event-update]="event.type === 'EMPLOYEE_UPDATED'" [class.event-delete]="event.type === 'EMPLOYEE_DELETED'">
+          {{ event.type }}
+        </span>
+        <span class="event-name">{{ event.employeeName }}</span>
+        <span class="event-time">{{ event.createdAt | date:'HH:mm:ss' }}</span>
+      </div>
+      }
+    } @else {
+      <div class="kafka-event kafka-muted">
+        Employee create, update, and delete actions publish backend Kafka events.
+      </div>
+    }
+  </div>
+</div>
+
+@if (isRateLimited) {
+<div class="alert alert-danger mb-3" role="alert">
+  <strong>⚠️ Rate Limit Exceeded:</strong> You have reached the limit of 5 requests per minute. 
+  @if (resetTimeRemaining !== null && resetTimeRemaining > 0) {
+    Please wait <strong>{{ resetTimeRemaining }}</strong> seconds before trying again.
+  } @else {
+    Please wait a moment before trying again.
+  }
+</div>
+} @else if (remainingRequests !== null && limit !== null) {
+<div class="mb-3">
+  <span class="badge bg-info text-dark" style="font-size: 1rem; padding: 8px 12px;">
+    API Requests Remaining: {{ remainingRequests }} / {{ limit }}
+    @if (resetTimeRemaining !== null && resetTimeRemaining > 0) {
+      <span style="font-size: 0.85rem; font-weight: normal; margin-left: 8px; opacity: 0.85;">
+        (Resets in {{ resetTimeRemaining }}s)
+      </span>
+    }
+  </span>
+</div>
+}
+
+<div style="border: 2px solid red; padding-bottom: 100px;">
+  <table class="table table-striped">
     <thead>
-        <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th> Email Id</th>
-            <th>Actions</th>
-        </tr>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th> Email Id</th>
+        <th>Actions</th>
+      </tr>
     </thead>
     <tbody>
-        @for (employee of employees; track employee.id) {
-            <tr >
-            <td>{{employee.firstName}}</td>
-            <td>{{employee.lastName}}</td>
-            <td>{{employee.emailId}}</td>
-            <td>
-                <button (click)="updateEmployee(employee.id)" class="btn btn-info">
-                    Update
-                </button>
-                <button (click)="deleteEmployee(employee.id)" class="btn btn-danger" style="margin-left: 10px;">
-                    Delete
-                </button>
-                <button (click)="employeeDetails(employee.id)" class="btn btn-info" style="margin-left: 10px;">
-                    View
-                </button>
-                
-            </td>
-        </tr>
-        }
-        
+      @for (employee of employees; track employee.id) {
+      <tr [class.row-highlight-create]="highlightedEmployeeIds[employee.id] === 'create'"
+          [class.row-highlight-update]="highlightedEmployeeIds[employee.id] === 'update'">
+        <td>{{employee.firstName}}</td>
+        <td>{{employee.lastName}}</td>
+        <td>{{employee.emailId}}</td>
+        <td>
+          <button (click)="updateEmployee(employee.id)" class="btn btn-info">
+            Update
+          </button>
+          <button (click)="deleteEmployee(employee.id)" class="btn btn-danger" style="margin-left: 10px;">
+            Delete
+          </button>
+          <button (click)="employeeDetails(employee.id)" class="btn btn-info" style="margin-left: 10px;">
+            View
+          </button>
+
+        </td>
+      </tr>
+      }
+
     </tbody>
 
-</table>
+  </table>
 </div>

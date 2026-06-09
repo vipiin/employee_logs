@@ -4,7 +4,7 @@
             "type": "java",
             "name": "Spring Boot-SpringbootBackendApplication<springboot-backend>",
             "request": "launch",
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}/springboot-backend",
             "mainClass": "com.project.springboot_backend.SpringbootBackendApplication",
             "projectName": "springboot-backend",
             "args": "",

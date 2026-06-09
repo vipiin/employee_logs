@@ -1,4 +1,4 @@
 export const environment = {
-  production: true,
-  apiBaseUrl: "https://employee-logs.onrender.com"
+  production: false,
+  apiBaseUrl: "http://localhost:8080"
 };

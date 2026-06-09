@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { NgModel } from '@angular/forms';
 import { Employee } from '../employee';
 import { EmployeeService } from '../employee-service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { errorContext } from 'rxjs/internal/util/errorContext';
 
 @Component({
   selector: 'app-update-employee',
@@ -24,7 +22,7 @@ export class UpdateEmployee implements OnInit{
     this.router.navigate(['/employees']);
   }
   onSubmit(){
-    this.employeeService.updateEmployee(this.id,this.employee).subscribe(data=>{
+    this.employeeService.updateEmployee(this.id,this.employee).subscribe(updatedEmployee=>{
       this.goToEmployeeList();
     },
   error=>console.log(error)

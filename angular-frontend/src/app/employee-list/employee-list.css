@@ -1,0 +1,128 @@
+.kafka-status {
+  background: #f8fafc;
+  border: 1px solid #d7dde5;
+  border-left: 4px solid #198754;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 6px;
+}
+
+.kafka-header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 8px;
+}
+
+.kafka-title {
+  color: #1f2937;
+  font-weight: 700;
+}
+
+.kafka-topic {
+  color: #6b7280;
+  font-size: 0.85rem;
+}
+
+.kafka-events-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.kafka-event-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  animation: slideInEvent 0.3s ease-out;
+}
+
+@keyframes slideInEvent {
+  0% {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.event-type {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: #fff;
+}
+
+.event-create {
+  background: #198754;
+}
+
+.event-update {
+  background: #0d6efd;
+}
+
+.event-delete {
+  background: #dc3545;
+}
+
+.event-name {
+  color: #374151;
+  font-weight: 500;
+  margin-left: 10px;
+  margin-right: auto;
+}
+
+.event-time,
+.kafka-muted {
+  color: #6b7280;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 640px) {
+  .kafka-status,
+  .kafka-event {
+    align-items: flex-start;
+    flex-direction: column;
+    text-align: left;
+  }
+}
+
+@keyframes highlightCreate {
+  0% {
+    background-color: rgba(25, 135, 84, 0.3);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+@keyframes highlightUpdate {
+  0% {
+    background-color: rgba(13, 110, 253, 0.25);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+.row-highlight-create td {
+  animation: highlightCreate 3s ease-out;
+}
+
+.row-highlight-update td {
+  animation: highlightUpdate 3s ease-out;
+}
+
