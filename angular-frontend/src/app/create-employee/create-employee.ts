@@ -26,6 +26,11 @@ export class CreateEmployee {
   }
 
   onSubmit() {
-    this.saveEmployee();
+    this.router.navigate(['/employees'], {
+      state: {
+        pendingAction: 'CREATE',
+        employee: this.employee
+      }
+    });
   }
 }

@@ -69,13 +69,13 @@
         <td>{{employee.lastName}}</td>
         <td>{{employee.emailId}}</td>
         <td>
-          <button (click)="updateEmployee(employee.id)" class="btn btn-info">
+          <button (click)="updateEmployee(employee.id)" class="btn btn-info" [disabled]="employee.id < 0">
             Update
           </button>
-          <button (click)="deleteEmployee(employee.id)" class="btn btn-danger" style="margin-left: 10px;">
+          <button (click)="deleteEmployee(employee.id)" class="btn btn-danger" style="margin-left: 10px;" [disabled]="employee.id < 0">
             Delete
           </button>
-          <button (click)="employeeDetails(employee.id)" class="btn btn-info" style="margin-left: 10px;">
+          <button (click)="employeeDetails(employee.id)" class="btn btn-info" style="margin-left: 10px;" [disabled]="employee.id < 0">
             View
           </button>
 
@@ -87,3 +87,33 @@
 
   </table>
 </div>
+
+<!-- Undo Notification Toast -->
+@if (showUndoPopup) {
+  <div class="undo-toast-wrapper">
+    <div class="undo-toast">
+      <div class="undo-toast-content">
+        <span class="undo-toast-message">
+          @if (undoActionType === 'CREATE') {
+            Created <strong>{{ undoEmployeeName }}</strong>
+          } @else if (undoActionType === 'UPDATE') {
+            Updated <strong>{{ undoEmployeeName }}</strong>
+          } @else if (undoActionType === 'DELETE') {
+            Deleted <strong>{{ undoEmployeeName }}</strong>
+          }
+        </span>
+        <span class="undo-toast-timer">
+          (undo in {{ undoCountdown }}s)
+        </span>
+      </div>
+      <div class="undo-toast-actions">
+        <button (click)="undoAction()" class="btn btn-warning btn-sm btn-undo">
+          Undo
+        </button>
+        <button (click)="executeAnyPendingAction()" class="btn btn-link btn-sm text-white text-decoration-none">
+          Dismiss
+        </button>
+      </div>
+    </div>
+  </div>
+}

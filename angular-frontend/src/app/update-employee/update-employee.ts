@@ -18,20 +18,24 @@ export class UpdateEmployee implements OnInit{
 
   }
   employee: Employee=new Employee();
+  originalEmployee!: Employee;
   goToEmployeeList() {
     this.router.navigate(['/employees']);
   }
   onSubmit(){
-    this.employeeService.updateEmployee(this.id,this.employee).subscribe(updatedEmployee=>{
-      this.goToEmployeeList();
-    },
-  error=>console.log(error)
-  );
+    this.router.navigate(['/employees'], {
+      state: {
+        pendingAction: 'UPDATE',
+        employee: this.employee,
+        originalEmployee: this.originalEmployee
+      }
+    });
   }
   ngOnInit(): void {
       this.id=this.route.snapshot.params["id"];
       this.employeeService.getEmployeeById(this.id).subscribe(data=>{
         this.employee=data;
+        this.originalEmployee = { ...data };
       },error=>console.log(error));
   }
 
